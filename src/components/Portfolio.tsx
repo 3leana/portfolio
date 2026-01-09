@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Mail, ExternalLink, ArrowRight, Code2, Github, Linkedin, } from 'lucide-react';
+import portrait from "../images/portrait.png";
 
 interface Project {
   title: string;
@@ -185,7 +186,7 @@ export default function Portfolio() {
             <div className="w-full max-w-[300px] lg:max-w-none">
               <div className="aspect-square rounded-2xl bg-zinc-800 border border-emerald-700/30 overflow-hidden shadow-[0_0_20px_rgba(52,211,153,0.15)]">
                 <img 
-                  src="/images/profile.jpg" 
+                  src={portrait}
                   alt="Eleana Mita" 
                   className="w-full h-full object-cover"
                 />
@@ -313,6 +314,7 @@ export default function Portfolio() {
                 href="https://linkedin.com/in/eleana-mita"
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="Visit my LinkedIn profile"
                 className="flex items-center gap-4 p-4 border border-emerald-700/30 rounded-lg hover:border-emerald-600 hover:bg-zinc-800/50 hover:shadow-[0_0_15px_rgba(52,211,153,0.1)] transition-all group"
               >
                 <Linkedin className="w-5 h-5 text-emerald-400" />
@@ -332,6 +334,7 @@ export default function Portfolio() {
             href="https://github.com/3leana/portfolio"
             target="_blank"
             rel="noopener noreferrer"
+            aria-label="Visit my GitHub profile"
             className="hover:text-emerald-400 transition-colors">
             View source code
           </a>
