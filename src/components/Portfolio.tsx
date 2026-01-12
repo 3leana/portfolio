@@ -8,6 +8,7 @@ interface Project {
   description: string;
   tech: string[];
   impact: string[];
+  link?: string;
 }
 
 export default function Portfolio() {
@@ -55,7 +56,7 @@ export default function Portfolio() {
         "Automated Jest tests (90%+ coverage) executed via GitHub Actions, with Dockerized deployment to a Linux server."
       ]
     },
-    {
+    { 
       title: "ChefAI — AI-Powered Recipe Recommendation Chatbot",
       date: "March 2025",
       description:
@@ -65,7 +66,8 @@ export default function Portfolio() {
         "Delivered an end-to-end AI-powered application during a hackathon environment",
         "Improved usability through interactive recipe cards and dynamic filtering",
         "Demonstrated practical integration of LLMs into a consumer-facing web app"
-      ]
+      ],
+      link: "https://github.com/snehamrzn/chef-ai"
     },
     {
       title: "Astron — B2B Construction Project Management Platform",
@@ -77,7 +79,8 @@ export default function Portfolio() {
         "Finalist at the Housing Crisis Hackathon for an innovative B2B solution",
         "Improved visibility into project progress, materials, and workforce planning",
         "Demonstrated team leadership and end-to-end product delivery"
-      ]
+      ],
+      link: "https://github.com/ssaha001/astron-ui"
     }
   ];
 
@@ -242,7 +245,19 @@ export default function Portfolio() {
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex items-center gap-3">
                     <Code2 className="w-6 h-6 text-emerald-400" />
-                    <h3 className="text-2xl font-semibold text-stone-50">{project.title}</h3>
+                    {project.link ? (
+                      <a 
+                        href={project.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-2xl font-semibold text-stone-50 hover:text-emerald-400 transition-colors flex items-center gap-2 group"
+                      >
+                        {project.title}
+                        <ExternalLink className="w-5 h-5 opacity-0 group-hover:opacity-100 transition-opacity" />
+                      </a>
+                      ) : (
+                        <h3 className="text-2xl font-semibold text-stone-50">{project.title}</h3>
+                      )}
                   </div>
                   <span className="text-sm text-stone-400">{project.date}</span>
                 </div>
