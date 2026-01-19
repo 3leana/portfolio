@@ -2,7 +2,8 @@
 
 Personal portfolio showcasing my projects, skills, and experience as a software developer. Built with React, TypeScript, and Tailwind CSS.
 
-**Live site:** _Coming soon_
+**Live site:** [eleanamita.com](https://eleanamita.com)
+
 
 ## Features
 - Smooth section-based navigation with active state highlighting  
