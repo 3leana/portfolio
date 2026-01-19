@@ -134,7 +134,7 @@ export default function Portfolio() {
               <span className="text-stone-400 sm:text-5xl">Software Developer Student</span>
             </h1>
             <p className="text-2xl text-stone-300 mb-8 leading-relaxed max-w-2xl">
-              I enjoy solving complex problems and building software that matters. My current interests include distributed systems, web development, and machine learning.
+              I'm passionate about turning ideas into working software and tackling tricky problems. In my downtime, I'm usually deep into a massive puzzle, trying out a new baking recipe, or exploring local patisseries for inspiration.
             </p>
             <div className="flex gap-4">
               <button 
