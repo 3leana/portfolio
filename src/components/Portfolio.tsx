@@ -184,7 +184,45 @@ export default function Portfolio() {
                   <p className="text-stone-400 text-base">Expected Graduation: August 2027</p>
                 </div>
               </div>
+              <div className="pt-4">
+  <h3 className="text-2xl font-semibold text-emerald-400 mb-3">Volunteer Experience</h3>
+  
+  <div className="space-y-6">
+           <div className="space-y-2">
+              <p className="text-stone-200 font-medium">Director of IT — Seneca Hackathon 2026</p>
+              <p className="text-stone-400 text-base">Seneca Hackathon · Volunteer · March 2026 – Present</p>
+              <ul className="space-y-1 pt-1">
+                {[
+                  "Leading cross-functional collaboration between the IT team, event organizers and faculty stakeholders to align technical delivery with event goals.",
+                  "Communicating progress, surfacing risks early and ensuring platform decisions reflect the needs of all departments involved.",
+                ].map((item) => (
+                  <li key={item} className="flex items-start gap-2 text-base text-stone-300 leading-relaxed">
+                    <span className="text-emerald-400 mt-1">→</span>
+                    {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
+            <br/>
+                <div className="space-y-2">
+      <p className="text-stone-200 font-medium">IT Coordinator — Seneca Hackathon 2026</p>
+      <p className="text-stone-400 text-base">Seneca Hackathon · Volunteer · February 2026 – March 2026</p>
+      <ul className="space-y-1 pt-1">
+        {[
+          "Coordinating a team of 7 developers across database, backend and frontend streams",
+          "Reviewing implementation work and resolving blockers across all technical workstreams",
+          "Ensuring the system meets the event's operational requirements end to end",
+        ].map((item) => (
+          <li key={item} className="flex items-start gap-2 text-base text-stone-300 leading-relaxed">
+            <span className="text-emerald-400 mt-1">→</span>
+            {item}
+          </li>
+        ))}
+      </ul>
+    </div>
+          </div>
+        </div>
             
             <div className="w-full max-w-[300px] lg:max-w-none">
               <div className="aspect-square rounded-2xl bg-zinc-800 border border-emerald-700/30 overflow-hidden shadow-[0_0_20px_rgba(52,211,153,0.15)]">
