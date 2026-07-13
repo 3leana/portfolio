@@ -1,15 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
-import { Mail, ExternalLink, ArrowRight, Code2, Github, Linkedin, } from 'lucide-react';
+import { Mail, ExternalLink, Github, Linkedin } from 'lucide-react';
 import portrait from "../images/portrait.png";
-
-interface Project {
-  title: string;
-  date: string;
-  description: string;
-  tech: string[];
-  impact: string[];
-  link?: string;
-}
 
 export default function Portfolio() {
   const [activeSection, setActiveSection] = useState('home');
@@ -24,235 +15,216 @@ export default function Portfolio() {
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['home', 'about', 'projects', 'contact'];
+      const sections = ['home', 'about', 'skills', 'projects', 'contact'];
       const scrollPosition = window.scrollY + 200;
-
       for (const section of sections) {
         const element = sectionsRef.current[section];
         if (element) {
           const { offsetTop, offsetHeight } = element;
           if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
-            setActiveSection(section);
+            setActiveSection(section === 'projects' ? 'contact' : section);
             break;
           }
         }
       }
     };
-
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const projects: Project[] = [
+  const projects = [
     {
-      title: "Fragments — Distributed Microservices Platform",
-      date: "Sept – Dec 2025",
-      description:
-        "Designed and deployed a distributed backend service for storing, retrieving, and transforming text and image fragments at scale.",
-      tech: ["Node.js", "AWS ECS/EC2", "Express", "Docker", "DynamoDB", "S3", "JWT"],
-      impact: [
-        "Supported CRUD operations across 10+ MIME types for structured and unstructured data",
-        "Enabled scalable storage using DynamoDB and S3 with clear separation of concerns",
-        "Automated Jest tests (90%+ coverage) executed via GitHub Actions, with Dockerized deployment to a Linux server."
-      ]
-    },
-    { 
-      title: "ChefAI — AI-Powered Recipe Recommendation Chatbot",
+      title: "ChefAI - AI-Powered Recipe Recommendation Chatbot",
       date: "March 2025",
-      description:
-        "Built a full-stack AI-driven web application that generates personalized recipes based on user-selected ingredients and preferences.",
+      description: "Built a full-stack AI-driven web application that generates personalized recipes based on user-selected ingredients and preferences.",
       tech: ["React", "Node.js", "Express", "OpenAI API", "JavaScript", "CSS"],
       impact: [
-        "Delivered an end-to-end AI-powered application during a hackathon environment",
-        "Improved usability through interactive recipe cards and dynamic filtering",
-        "Demonstrated practical integration of LLMs into a consumer-facing web app"
+        <>Delivered an <strong>end-to-end AI-powered application</strong> in a hackathon environment.</>,
+        <>Improved usability through <strong>interactive recipe cards</strong> and dynamic filtering.</>,
+        <>Demonstrated practical integration of <strong>LLMs</strong> into a consumer-facing web app.</>
       ],
       link: "https://github.com/snehamrzn/chef-ai"
-    },
+      },
     {
-      title: "Astron — B2B Construction Project Management Platform",
+      title: "Astron - B2B Construction Project Management Platform",
       date: "March 2024",
-      description:
-        "Led development of a web-based platform to centralize planning, tracking, and collaboration for construction and renovation projects.",
+      description: "Led development of a web-based platform to centralize planning, tracking, and collaboration for construction and renovation projects.",
       tech: ["React", "Node.js", "Express", "REST API", "Figma"],
       impact: [
-        "Finalist at the Housing Crisis Hackathon for an innovative B2B solution",
-        "Improved visibility into project progress, materials, and workforce planning",
-        "Demonstrated team leadership and end-to-end product delivery"
+        <><strong>Finalist</strong> at the Housing Crisis Hackathon for an innovative B2B solution.</>,
+        <>Improved visibility into project <strong> progress, materials and workforce planning</strong></>,
+        <>Demonstrated <strong>team leadership</strong> and end-to-end product delivery</>
       ],
       link: "https://github.com/ssaha001/astron-ui"
     }
   ];
 
   const skills = {
-    languages: ["JavaScript/TypeScript", "Python", "C/C++", "SQL", "HTML/CSS"],
-    frameworks: ["React", "Next.js", "Node.js", "Express", "REST APIs"],
-    "databases & cloud": ["MySQL", "Oracle (SQL)" , "AWS", "EC2", "ECS", "Cognito" , "S3", "DynamoDB"],
-    "devOps & tools": ["Git", "Docker", "Jest", "Linux", "CI/CD"]
+    "Languages": ["JavaScript", "Python", "C / C++", "SQL", "HTML / CSS"],
+    "Frameworks": ["React", "Next.js", "Node.js", "Express", "REST APIs"],
+    "Databases and cloud": ["MySQL", "MongoDB/Supabase", "AWS EC2", "ECS", "DynamoDB", "S3"],
+    "DevOps and tools": ["Git", "Docker", "Jest", "Linux", "CI/CD", "GitHub Actions", "QA"]
   };
 
   return (
-    <div className="relative min-h-screen bg-zinc-900 text-stone-100">
-      <nav className="fixed top-0 left-0 right-0 z-40 bg-zinc-900/80 backdrop-blur-md border-b border-emerald-700/30 shadow-lg">
-        <div className="max-w-6xl mx-auto px-6 sm:px-8 py-4 flex justify-between items-center">
+    <div
+      className="relative min-h-screen bg-[#F8F5F0] text-[#2C2416]"
+    >
+      {/* NAV */}
+      <nav className="fixed top-0 left-0 right-0 z-40 bg-[#F8F5F0]/95 backdrop-blur-sm border-b border-[#D4CFC8]">
+        <div className="max-w-5xl mx-auto px-5 sm:px-10 py-4 flex flex-wrap justify-between items-center gap-x-4 gap-y-2">
           <button
             onClick={() => scrollToSection('home')}
-            className="text-xl font-semibold text-emerald-400 hover:text-emerald-300 transition-colors"
+            className="text-base tracking-widest uppercase font-bold text-[#2C2416]"
           >
             Eleana Mita
           </button>
-          <div className="flex gap-8">
-            {['home', 'about', 'projects', 'contact'].map((section) => (
+          <div className="flex flex-wrap gap-x-4 gap-y-1 sm:gap-x-7">
+            {['home', 'about', 'skills', 'contact'].map((section) => (
               <button
                 key={section}
                 onClick={() => scrollToSection(section)}
-                className={`capitalize text-base transition-colors relative ${
-                  activeSection === section 
-                    ? 'text-emerald-400' 
-                    : 'text-stone-400 hover:text-stone-200'
+                className={`text-xs uppercase tracking-widest transition-colors ${
+                  activeSection === section
+                    ? 'text-[#D4AF37]'
+                    : 'text-[#2C2416] hover:text-[#D4AF37]'
                 }`}
               >
                 {section}
-                {activeSection === section && (
-                  <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-emerald-400" />
-                )}
               </button>
             ))}
           </div>
         </div>
       </nav>
 
-      <section 
-        ref={(el) => {sectionsRef.current['home'] = el}}
-        className="relative min-h-screen flex items-center px-6 sm:px-8 pt-20"
+      {/* HERO */}
+      <section
+        ref={(el) => { sectionsRef.current['home'] = el; }}
+        className="pt-28 sm:pt-32 pb-16 px-5 sm:px-10"
       >
-        <div className="max-w-6xl mx-auto w-full">
-          <div className="max-w-3xl">
-            <h1 className="text-5xl sm:text-7xl font-bold mb-6 leading-tight text-stone-50">
-              Eleana Mita
-              <br />
-              <span className="text-stone-400 sm:text-5xl">Software Developer Student</span>
+        <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-[1fr_240px] gap-10 items-start">
+          <div className="flex flex-col gap-5 order-2 md:order-1">
+            <p className="text-xs uppercase tracking-widest text-[#9C9080]">Software developer student</p>
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-normal text-[#2C2416] leading-tight">
+              Eleana<br />
+              <span className="text-[#B8966E]">Mita</span>
             </h1>
-            <p className="text-2xl text-stone-300 mb-8 leading-relaxed max-w-2xl">
-              I'm passionate about turning ideas into working software and tackling tricky problems. In my downtime, I'm usually deep into a massive puzzle, trying out a new baking recipe, or exploring local patisseries for inspiration.
+            <p className="text-sm text-[#6B5C4A] leading-relaxed max-w-md">
+              Passionate about turning ideas into working software and tackling tricky problems.
+              Currently on co-op at SSP POS. In my downtime I am usually looking for another puzzle to start,
+              trying out a new baking recipe, or exploring local patisseries.
             </p>
-            <div className="flex gap-4">
-              <button 
+            <div className="flex flex-wrap gap-3 mt-1">
+              <button
                 onClick={() => scrollToSection('projects')}
-                className="px-6 py-3 bg-emerald-600 hover:bg-emerald-500 text-zinc-900 font-medium rounded-lg transition-colors flex items-center gap-2"
+                className="px-5 py-2 bg-[#B8966E] text-[#F8F5F0] text-xs tracking-wide rounded-sm hover:bg-[#A07D58] transition-colors"
               >
                 View my work
-                <ArrowRight className="w-4 h-4 rotate-90" />
               </button>
-              <button 
+              <button
                 onClick={() => scrollToSection('contact')}
-                className="px-6 py-3 border border-emerald-600/50 hover:border-emerald-500 hover:bg-emerald-950/30 rounded-lg transition-all text-stone-100"
+                className="px-5 py-2 border border-[#B8966E] text-[#2C2416] text-xs tracking-wide rounded-sm hover:bg-[#F0E8DC] transition-colors"
               >
                 Get in touch
               </button>
             </div>
           </div>
+          <div className="mt-2 order-1 md:order-2">
+            <div className="w-[200px] h-[300px] sm:w-[240px] sm:h-[360px] rounded overflow-hidden border border-[#B8966E] mx-auto md:mx-0">
+              <img src={portrait} alt="Eleana Mita" className="w-full h-full object-cover" />
+            </div>
+          </div>
         </div>
       </section>
 
-      <div className="h-px bg-gradient-to-r from-transparent via-emerald-600/50 to-transparent shadow-[0_0_8px_rgba(52,211,153,0.4)]" />
-
-      <section 
-        ref={(el) => {sectionsRef.current['about'] = el}}
-        className="py-32 px-6 sm:px-8"
+      {/* ABOUT */}
+      <section
+        ref={(el) => { sectionsRef.current['about'] = el; }}
+        className="py-14 px-5 sm:px-10"
       >
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl font-bold mb-12 text-stone-50">About Me</h2>
-          
-          <div className="grid lg:grid-cols-[1fr,300px] gap-12 items-start">
-            <div className="space-y-5 text-stone-300 leading-relaxed text-lg">
-              <p>
-                Based in Toronto, ON, I’m a Computer Science student with a strong foundation in algorithms, data structures, and software engineering.
+        <div className="max-w-5xl mx-auto">
+          <p className="text-xs uppercase tracking-widest text-[#B8966E] mb-6">About me</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+            <div>
+              <h2 className="text-2xl font-normal text-[#2C2416] leading-snug mb-4">
+                Full-stack developer with a focus on{' '}
+                <span className="text-[#B8966E]">building things right.</span>
+              </h2>
+              <p className="text-sm text-[#5C4E3E] leading-relaxed">
+                <br/>
+                 During my co-op at SSP POS
+                I contribute to <strong className="text-[#2C2416] font-semibold">Next.js front-end development</strong> and standardize{' '}
+                <strong className="text-[#2C2416] font-semibold">CI/CD pipelines with GitHub Actions</strong> across the company's full
+                product suite.
+                <br/>
+                <br/>
+                I've also <strong className="text-[#2C2416] font-semibold">led a team of 7 developers</strong> as IT
+                Coordinator for the Seneca Hackathon and shipped a{' '}
+                <strong className="text-[#2C2416] font-semibold">registration management portal & a marketing website end-to-end</strong> under tight time constraints.
               </p>
-              <p>
-                I enjoy breaking down complex problems into manageable systems 
-                and building solutions that scale. I’m particularly interested in
-                 backend development, real-time applications, and combining machine
-                learning with traditional software systems.
-              </p>
-              
-              <div className="pt-4">
-                <h3 className="text-xl font-semibold text-emerald-400 mb-3">Education</h3>
-                <div className="space-y-2">
-                  <p className="text-stone-200 font-medium">Honours Bachelor of Technology - Software Development</p>
-                  <p className="text-stone-400 text-base">Seneca Polytechnic | Toronto ON </p>
-                  <p className="text-stone-400 text-base">Expected Graduation: August 2027</p>
+            </div>
+            <div className="flex flex-col gap-5">
+              <div>
+                <p className="text-xs uppercase tracking-widest text-[#B8966E] mb-1">Education</p>
+                <p className="text-sm text-[#2C2416]">Honours Bachelor of Technology - Software Development</p>
+                <p className="text-xs text-[#B8966E] mt-1">Expected graduation: Aug 2027</p>
+                <p className="text-xs text-[#9C9080] leading-relaxed">
+                  Seneca Polytechnic, Toronto, ON<br />
+                </p>
+              </div>
+              <div className="border-t border-[#D4CFC8]" />
+              <div>
+                <p className="text-xs uppercase tracking-widest text-[#B8966E] mb-1">Experience</p>
+                <p className="text-sm text-[#2C2416]">Full-Stack and DevOps Co-op @ SSP POS</p>
+                <p className="text-xs text-[#B8966E] mt-1 mb-2">May 2026 - present</p>
+                <div className="flex flex-col gap-1">
+                  {[
+                    "Contributed to Next.js features and bug fixes across 5+ active web applications.",
+                    "Built an automated release pipeline using GitHub Actions that publishes versioned MSI installers to AWS S3 on every new release.",
+                    "Published a new app to the Google Play Store, handling store setup, asset configuration, and content policy compliance."
+                  ].map((b, i) => (
+                    <p key={i} className="text-xs text-[#5C4E3E] leading-relaxed pl-3 relative before:content-['-'] before:absolute before:left-0 before:text-[#B8966E]">
+                      {b}
+                    </p>
+                  ))}
                 </div>
               </div>
-              <div className="pt-4">
-  <h3 className="text-2xl font-semibold text-emerald-400 mb-3">Volunteer Experience</h3>
-  
-  <div className="space-y-6">
-           <div className="space-y-2">
-              <p className="text-stone-200 font-medium">Director of IT — Seneca Hackathon 2026</p>
-              <p className="text-stone-400 text-base">Seneca Hackathon · Volunteer · March 2026 – Present</p>
-              <ul className="space-y-1 pt-1">
-                {[
-                  "Leading cross-functional collaboration between the IT team, event organizers and faculty stakeholders to align technical delivery with event goals.",
-                  "Communicating progress, surfacing risks early and ensuring platform decisions reflect the needs of all departments involved.",
-                ].map((item) => (
-                  <li key={item} className="flex items-start gap-2 text-base text-stone-300 leading-relaxed">
-                    <span className="text-emerald-400 mt-1">→</span>
-                    {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-            <br/>
-                <div className="space-y-2">
-      <p className="text-stone-200 font-medium">IT Coordinator — Seneca Hackathon 2026</p>
-      <p className="text-stone-400 text-base">Seneca Hackathon · Volunteer · February 2026 – March 2026</p>
-      <ul className="space-y-1 pt-1">
-        {[
-          "Coordinating a team of 7 developers across database, backend and frontend streams",
-          "Reviewing implementation work and resolving blockers across all technical workstreams",
-          "Ensuring the system meets the event's operational requirements end to end",
-        ].map((item) => (
-          <li key={item} className="flex items-start gap-2 text-base text-stone-300 leading-relaxed">
-            <span className="text-emerald-400 mt-1">→</span>
-            {item}
-          </li>
-        ))}
-      </ul>
-    </div>
-          </div>
-        </div>
-            
-            <div className="w-full max-w-[300px] lg:max-w-none">
-              <div className="aspect-square rounded-2xl bg-zinc-800 border border-emerald-700/30 overflow-hidden shadow-[0_0_20px_rgba(52,211,153,0.15)]">
-                <img 
-                  src={portrait}
-                  alt="Eleana Mita" 
-                  className="w-full h-full object-cover"
-                />
-              </div>
             </div>
           </div>
 
-          <div className="mt-16">
-            <h3 className="text-2xl font-semibold mb-6 text-emerald-400">Skills & Technologies</h3>
-            <div className="space-y-6">
-              {Object.entries(skills).map(([category, items]) => (
-                <div key={category}>
-                  <h4 className="text-sm font-medium text-stone-400 uppercase tracking-wider mb-3">
-                    {category}
-                  </h4>
-                  <div className="flex flex-wrap gap-2">
-                    {items.map((skill) => (
-                      <span 
-                        key={skill}
-                        className="px-4 py-2 bg-zinc-800 border border-emerald-700/30 rounded-md text-sm text-stone-300 hover:border-emerald-600 hover:shadow-[0_0_10px_rgba(52,211,153,0.2)] transition-all"
-                      >
-                        {skill}
-                      </span>
-                    ))}
-                  </div>
+          {/* VOLUNTEERING */}
+          <div className="mt-10 border-t border-[#D4CFC8] pt-8">
+            <p className="text-xs uppercase tracking-widest text-[#B8966E] mb-6">Volunteering</p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+              {[
+                {
+                  role: "Director of IT",
+                  org: "Seneca Hackathon 2026 - Volunteer",
+                  date: "March - April 2026",
+                  bullets: [
+                    "Leading cross-functional collaboration between IT, organizers, and faculty to align technical delivery with event goals.",
+                    "Communicating progress daily and ensuring platform decisions reflect all departments."
+                  ]
+                },
+                {
+                  role: "IT Coordinator",
+                  org: "Seneca Hackathon 2026 - Volunteer",
+                  date: "February - March 2026",
+                  bullets: [
+                    "Coordinated 7 developers across database, backend, and frontend streams.",
+                    "Reviewed implementation work and resolved blockers across all technical workstreams."
+                  ]
+                }
+              ].map((v, i) => (
+                <div key={i}>
+                  <p className="text-sm text-[#2C2416]">{v.role}</p>
+                  <p className="text-xs text-[#B8966E] mt-0.5">{v.org}</p>
+                  <p className="text-xs text-[#9C9080] mb-2">{v.date}</p>
+                  {v.bullets.map((b, j) => (
+                    <p key={j} className="text-xs text-[#5C4E3E] leading-relaxed pl-3 relative before:content-['-'] before:absolute before:left-0 before:text-[#B8966E] mb-1">
+                      {b}
+                    </p>
+                  ))}
                 </div>
               ))}
             </div>
@@ -260,66 +232,64 @@ export default function Portfolio() {
         </div>
       </section>
 
-      <div className="h-px bg-gradient-to-r from-transparent via-emerald-600/50 to-transparent shadow-[0_0_8px_rgba(52,211,153,0.4)]" />
-
-      <section 
-        ref={(el) => {sectionsRef.current['projects'] = el}}
-        className="py-32 px-6 sm:px-8"
+      {/* SKILLS */}
+      <section
+        ref={(el) => { sectionsRef.current['skills'] = el; }}
+        className="py-14 px-5 sm:px-10"
       >
-        <div className="max-w-6xl mx-auto">
-          <div className="mb-16">
-            <h2 className="text-4xl font-bold mb-4 text-stone-50">Technical Projects</h2>
-            <p className="text-stone-300 max-w-2xl">
-              Here are some projects I've worked on. I’m happy to discuss the architecture and implementation details.
-            </p>
-          </div>
-
-          <div className="space-y-8">
-            {projects.map((project, idx) => (
-              <div 
-                key={idx}
-                className="group border border-emerald-700/30 rounded-xl p-8 hover:border-emerald-600 hover:shadow-[0_0_25px_rgba(52,211,153,0.15)] transition-all duration-300 bg-zinc-800/50"
-              >
-                <div className="flex items-start justify-between mb-4">
-                  <div className="flex items-center gap-3">
-                    <Code2 className="w-6 h-6 text-emerald-400" />
-                    {project.link ? (
-                      <a 
-                        href={project.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-2xl font-semibold text-stone-50 hover:text-emerald-400 transition-colors flex items-center gap-2 group"
-                      >
-                        {project.title}
-                        <ExternalLink className="w-5 h-5 opacity-0 group-hover:opacity-100 transition-opacity" />
-                      </a>
-                      ) : (
-                        <h3 className="text-2xl font-semibold text-stone-50">{project.title}</h3>
-                      )}
-                  </div>
-                  <span className="text-sm text-stone-400">{project.date}</span>
-                </div>
-
-                <p className="text-stone-300 mb-6 text-base leading-relaxed">{project.description}</p>
-
-                <div className="mb-6">
-                  <h4 className="text-base font-semibold text-emerald-400 mb-3">Key Highlights</h4>
-                  <ul className="space-y-2">
-                    {project.impact.map((item, i) => (
-                      <li key={i} className="flex items-start gap-2 text-base text-stone-300 leading-relaxed">
-                        <span className="text-emerald-400 mt-1">→</span>
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
+        <div className="max-w-5xl mx-auto">
+          <p className="text-xs uppercase tracking-widest text-[#B8966E] mb-6">Skills and technologies</p>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
+            {Object.entries(skills).map(([cat, items]) => (
+              <div key={cat}>
+                <p className="text-xs uppercase tracking-widest text-[#B8966E] mb-3">{cat}</p>
                 <div className="flex flex-wrap gap-2">
-                  {project.tech.map((tech) => (
-                    <span 
-                      key={tech}
-                      className="px-3 py-1.5 bg-zinc-900 border border-emerald-700/30 rounded text-sm text-stone-400"
+                  {items.map((skill) => (
+                    <span
+                      key={skill}
+                      className="text-xs text-[#2C2416] border border-[#B8966E] px-3 py-1 rounded"
                     >
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* PROJECTS */}
+      <section
+        ref={(el) => { sectionsRef.current['projects'] = el; }}
+        className="py-14 px-5 sm:px-10"
+      >
+        <div className="max-w-5xl mx-auto">
+          <p className="text-xs uppercase tracking-widest text-[#B8966E] mb-6">Selected projects</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            {projects.map((project, idx) => (
+              <div key={idx} className="bg-white border border-[#D4CFC8] rounded p-6 flex flex-col gap-3">
+                <p className="text-xs text-[#B8966E] tracking-wide">{project.date}</p>
+                <a
+                  href={project.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm text-[#2C2416] border-b border-[#D4CFC8] pb-1 hover:text-[#B8966E] hover:border-[#B8966E] transition-colors flex items-center gap-1"
+                >
+                  {project.title}
+                  <ExternalLink className="w-3 h-3 opacity-50" />
+                </a>
+                <p className="text-xs text-[#7A6C5E] leading-relaxed">{project.description}</p>
+                <div className="flex flex-col gap-1">
+                  {project.impact.map((item, i) => (
+                    <p key={i} className="text-xs text-[#5C4E3E] leading-relaxed pl-3 relative before:content-['-'] before:absolute before:left-0 before:text-[#B8966E]">
+                      {item}
+                    </p>
+                  ))}
+                </div>
+                <div className="flex flex-wrap gap-1.5 mt-1">
+                  {project.tech.map((tech) => (
+                    <span key={tech} className="text-xs text-[#2C2416] border border-[#B8966E] px-2 py-0.5 rounded">
                       {tech}
                     </span>
                   ))}
@@ -330,65 +300,39 @@ export default function Portfolio() {
         </div>
       </section>
 
-      <div className="h-px bg-gradient-to-r from-transparent via-emerald-600/50 to-transparent shadow-[0_0_8px_rgba(52,211,153,0.4)]" />
-
-      <section 
-        ref={(el) => {sectionsRef.current['contact'] = el}}
-        className="py-32 px-6 sm:px-8"
+      {/* CONTACT */}
+      <section
+        ref={(el) => { sectionsRef.current['contact'] = el; }}
+        className="bg-[#2C2416] py-14 px-5 sm:px-10"
       >
-        <div className="max-w-6xl mx-auto">
-          <div className="max-w-2xl">
-            <h2 className="text-4xl font-bold mb-6 text-stone-50">Let's Connect</h2>
-            <p className="text-xl text-stone-300 mb-12 leading-relaxed">
-              Currently looking for <strong>software engineering/developer internships</strong>. I’d love to discuss projects, opportunities, or tech in general!
+        <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+          <div>
+            <h2 className="text-2xl font-normal text-[#F8F5F0] mb-3">Let's connect</h2>
+            <p className="text-xs text-[#8C7A5E] leading-relaxed">
+              Currently looking for software developer co-ops for Winter 2027. Always happy to connect over projects, ideas, or tech.
             </p>
-
-            <div className="space-y-4">
-              <a 
-                href="mailto:mita.eleana@gmail.com"
-                className="flex items-center gap-4 p-4 border border-emerald-700/30 rounded-lg hover:border-emerald-600 hover:bg-zinc-800/50 hover:shadow-[0_0_15px_rgba(52,211,153,0.1)] transition-all group"
-              >
-                <Mail className="w-5 h-5 text-emerald-400" />
-                <span className="text-stone-300 group-hover:text-stone-100">mita.eleana@gmail.com</span>
-              </a>
-
-              <a 
-                href="https://github.com/3leana"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-4 p-4 border border-emerald-700/30 rounded-lg hover:border-emerald-600 hover:bg-zinc-800/50 hover:shadow-[0_0_15px_rgba(52,211,153,0.1)] transition-all group"
-              >
-                <Github className="w-5 h-5 text-emerald-400" />
-                <span className="text-stone-300 group-hover:text-stone-100">github.com/3leana</span>
-                <ExternalLink className="w-4 h-4 ml-auto text-stone-500 group-hover:text-emerald-400" />
-              </a>
-
-              <a 
-                href="https://linkedin.com/in/eleana-mita"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Visit my LinkedIn profile"
-                className="flex items-center gap-4 p-4 border border-emerald-700/30 rounded-lg hover:border-emerald-600 hover:bg-zinc-800/50 hover:shadow-[0_0_15px_rgba(52,211,153,0.1)] transition-all group"
-              >
-                <Linkedin className="w-5 h-5 text-emerald-400" />
-                <span className="text-stone-300 group-hover:text-stone-100">linkedin.com/in/eleana-mita</span>
-                <ExternalLink className="w-4 h-4 ml-auto text-stone-500 group-hover:text-emerald-400" />
-              </a>
-            </div>
+          </div>
+          <div className="flex flex-col gap-3">
+            <a href="mailto:mita.eleana@gmail.com" className="flex items-center gap-3 p-3 border border-[#4A3C2A] rounded-sm text-xs text-[#C4A882] hover:border-[#B8966E] transition-colors">
+              <Mail className="w-4 h-4 text-[#B8966E]" />
+              mita.eleana@gmail.com
+            </a>
+            <a href="https://github.com/3leana" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 p-3 border border-[#4A3C2A] rounded-sm text-xs text-[#C4A882] hover:border-[#B8966E] transition-colors">
+              <Github className="w-4 h-4 text-[#B8966E]" />
+              github.com/3leana
+            </a>
+            <a href="https://linkedin.com/in/eleana-mita" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 p-3 border border-[#4A3C2A] rounded-sm text-xs text-[#C4A882] hover:border-[#B8966E] transition-colors">
+              <Linkedin className="w-4 h-4 text-[#B8966E]" />
+              linkedin.com/in/eleana-mita
+            </a>
           </div>
         </div>
       </section>
 
-      <footer className="border-t border-emerald-700/30 py-8 px-6 sm:px-8 shadow-[0_-1px_0_0_rgba(52,211,153,0.1)]">
-        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4 text-sm text-stone-400">
-          <p>© 2025 Eleana Mita | Built with React & TypeScript.</p>
-          <p>Designed & developed by me</p>
-          <a
-            href="https://github.com/3leana/portfolio"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Visit my GitHub profile"
-            className="hover:text-emerald-400 transition-colors">
+      <footer className="border-t border-[#3A2E1E] bg-[#2C2416] py-6 px-10">
+        <div className="max-w-5xl mx-auto flex justify-between items-center text-xs text-[#6B5C4A]">
+          <p>2026 Eleana Mita. Built with React and TypeScript.</p>
+          <a href="https://github.com/3leana/portfolio" target="_blank" rel="noopener noreferrer" className="hover:text-[#B8966E] transition-colors">
             View source code
           </a>
         </div>
