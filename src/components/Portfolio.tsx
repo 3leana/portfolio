@@ -176,7 +176,7 @@ export default function Portfolio() {
               <div>
                 <p className="text-xs uppercase tracking-widest text-[#B8966E] mb-1">Experience</p>
                 <p className="text-sm text-[#2C2416]">Full-Stack and DevOps Co-op @ SSP POS</p>
-                <p className="text-xs text-[#B8966E] mt-1 mb-2">May 2026 - present</p>
+                <p className="text-xs text-[#B8966E] mt-1 mb-2">May 2026 - Aug 2026</p>
                 <div className="flex flex-col gap-1">
                   {[
                     "Contributed to Next.js features and bug fixes across 5+ active web applications.",
